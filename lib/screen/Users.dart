@@ -7,7 +7,7 @@ import 'package:pocket_business/widgets/UsersCard.dart';
 import '../Styles.dart' as styles;
 import '../models/User.dart';
 import '../models/Warehouse.dart';
-import '../services/MenuBottom.dart';
+import '../widgets/MenuBottom.dart';
 import '../widgets/ConfirmDialog.dart';
 import '../screen/GlobalSearchPage.dart';
 import '../services/ServerManager.dart';

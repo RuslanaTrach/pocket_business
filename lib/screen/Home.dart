@@ -5,7 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pocket_business/auth/LoginPage.dart';
 import '../Styles.dart' as styles;
 import '../models/Warehouse.dart';
-import '../services/MenuBottom.dart';
+import '../widgets/MenuBottom.dart';
 import '../widgets/ConfirmDialog.dart';
 import '../screen/GlobalSearchPage.dart';
 import '../services/ServerManager.dart';
