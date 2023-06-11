@@ -6,8 +6,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 import '../Styles.dart' as styles;
 
-import '../screens/Home.dart';
-import '../screens/NewProductPage.dart';
+import '../screen/Home.dart';
+import '../screen/NewProductPage.dart';
 
 class MenuBottom extends StatefulWidget {
   MenuBottom(this._menuPosition, {super.key});

@@ -4,7 +4,7 @@ import 'package:parse_server_sdk_flutter/parse_server_sdk_flutter.dart';
 import 'package:pocket_business/auth/LoginPage.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:pocket_business/screens/Home.dart';
+import 'package:pocket_business/screen/Home.dart';
 String? jwt;
 
 final storage = FlutterSecureStorage();

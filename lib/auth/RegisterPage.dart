@@ -8,7 +8,7 @@ import 'package:flutter/widgets.dart';
 import '../Styles.dart' as styles;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter/services.dart';
-import '../screens/Home.dart';
+import '../screen/Home.dart';
 import '../services/AuthenticationService.dart';
 import '../services/ServerManager.dart';
 import 'CodePage.dart';

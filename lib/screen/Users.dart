@@ -3,30 +3,30 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pocket_business/auth/LoginPage.dart';
+import 'package:pocket_business/widgets/UsersCard.dart';
 import '../Styles.dart' as styles;
+import '../models/User.dart';
 import '../models/Warehouse.dart';
 import '../services/MenuBottom.dart';
 import '../widgets/ConfirmDialog.dart';
-import '../screens/GlobalSearchPage.dart';
+import '../screen/GlobalSearchPage.dart';
 import '../services/ServerManager.dart';
 import '../widgets/WarehouseCard.dart';
 import '../widgets/toast.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class Users extends StatefulWidget {
+  const Users({super.key});
   @override
-  _HomeState createState() => _HomeState();
+  _UsersState createState() => _UsersState();
 }
 
-class _HomeState extends State<Home> {
+class _UsersState extends State<Users> {
 
-  List<Warehouse> _productGroups  =[];
+  List<User> users  =[];
     @override
   void initState(){
-      ServerManager(context).getItemsRequest((body) {
-        for(Warehouse i in body) {
-          _productGroups.add(i);
-        }
+      ServerManager(context).getUsersRequest((body) {
+          users.addAll(body);
           setState(() {
 
           });
@@ -188,54 +188,13 @@ final TextEditingController _newProductGroup = TextEditingController();
                         bottomRight: Radius.circular(16),
                       ),
                     ),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
-                          "Homepage",
+                        Text(
+                          "Users",
                           style: styles.TextStyles.blackText26
                         ),
-                        Row(
-                          children: [
-                            IconButton(
-                              splashColor: styles.Colors.blue,
-                              icon: const Icon(
-                                Icons.search,
-                                color: styles.Colors.blue,
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        GlobalSearchPage(_productGroups),
-                                  ),
-                                );
-                              },
-                            ),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.power_settings_new,
-                                color: styles.Colors.blue,
-                              ),
-                              onPressed: () {
-                                showConfirmDialog(
-                                    context,
-                                    "Want to Logout?",
-                                    "No",
-                                    "Yes", () {
-                                  Navigator.of(context).pop();
-                                }, () {
-                                  const storage = FlutterSecureStorage();
-                                  storage.write(key: "token", value: null);
-                                  Navigator.push(context,
-                                      CupertinoPageRoute(
-                                          builder: (context) =>
-                                              LoginPage()));
-                                });
-                              },
-                            ),
-                          ],
-                        )
                       ],
                     ),
                   ),
@@ -246,12 +205,6 @@ final TextEditingController _newProductGroup = TextEditingController();
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-
-                            const SizedBox(height: 20),
-                            const Text(
-                              "Warehouse",
-                              style: styles.TextStyles.blackText20,
-                            ),
                             const SizedBox(height: 20),
                             Expanded(
                               child: GridView.builder(
@@ -262,11 +215,10 @@ final TextEditingController _newProductGroup = TextEditingController();
                                         crossAxisSpacing: 20,
                                         mainAxisSpacing: 20,
                                       ),
-                                      itemCount: _productGroups.length,
+                                      itemCount: users.length,
                                       itemBuilder: (context, index) {
-                                        return ProductGroupCard(
-                                          name: _productGroups[index].name,
-                                          object: _productGroups[index].objectId,
+                                        return UsersCard(
+                                          user: users[index],
                                           key: UniqueKey(),
                                         );}
 

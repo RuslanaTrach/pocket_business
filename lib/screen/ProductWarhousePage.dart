@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:pocket_business/Styles.dart';
-import 'package:pocket_business/screens/SearchProduct.dart';
+import 'package:pocket_business/screen/SearchProduct.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 import '../models/Product.dart';
 import '../services/ServerManager.dart';
