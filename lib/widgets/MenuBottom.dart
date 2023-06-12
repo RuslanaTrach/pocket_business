@@ -8,6 +8,7 @@ import '../Styles.dart' as styles;
 
 import '../screen/Home.dart';
 import '../screen/NewProductPage.dart';
+import '../screen/Users.dart';
 
 class MenuBottom extends StatefulWidget {
   MenuBottom(this._menuPosition, {super.key});
@@ -56,7 +57,12 @@ class _MenuBottomState extends State<MenuBottom> {
         //page = MarathonsPage();
         break;
       case MenuPosition.profile:
-        //page = ProfilePage();
+        Navigator.pushReplacement(
+          context,
+          PageRouteBuilder(
+            pageBuilder: (context, animation1, animation2) => Users(),
+          ),
+        );
         break;
       case MenuPosition.shop:
       //page = ProfilePage();
@@ -76,12 +82,15 @@ class _MenuBottomState extends State<MenuBottom> {
 
   @override
   void initState() {
+    getData();
     super.initState();
 
   }
+  final storage = FlutterSecureStorage();
   getData() async {
 
-    isAdmin = await FlutterSecureStorage().read(key: "isAdmin");
+    isAdmin = await storage.read(key: "isAdmin");
+
   }
   String? isAdmin;
   late int orderIndex;

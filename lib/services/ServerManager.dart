@@ -82,11 +82,11 @@ class ServerManager {
       'X-Parse-REST-API-Key': 'EzhBnwHfNOKp16HGXK4PLuhNxZztvwrGxnpP12ak',
       //'where':'{\"email\": \"$email}\"}'
     };
-    var response = await http.get(Uri.parse('https://parseapi.back4app.com/classes/User'), headers: headers);
+    var response = await http.get(Uri.parse('https://parseapi.back4app.com/classes/Users'), headers: headers);
 
     var body =
     convert.jsonDecode(convert.utf8.decode(response.bodyBytes));
-    print(body['results'][0]);
+    //print(body['results'][0]);
     User? data;
     List<User> mylist = [];
     if (response.statusCode == 200) {
@@ -121,7 +121,7 @@ class ServerManager {
       'X-Parse-REST-API-Key': 'EzhBnwHfNOKp16HGXK4PLuhNxZztvwrGxnpP12ak',
       //'where':'{\"email\": \"$email}\"}'
     };
-    var response = await http.get(Uri.parse('https://parseapi.back4app.com/classes/User'), headers: headers);
+    var response = await http.get(Uri.parse('https://parseapi.back4app.com/classes/Users'), headers: headers);
 
     var body =
     convert.jsonDecode(convert.utf8.decode(response.bodyBytes));
@@ -145,11 +145,7 @@ class ServerManager {
     }
   }
   getItemsRequest(void Function(List<Warehouse> body) onSuccess, void Function(String errorCode) onError) async {
-    final url = Uri.https(serverURL, "classes/Wahehouse");
-    //   "/$uuid");
 
-    // Await the http get response, then decode the json-formatted response.
-   // final String tok = await getToken();
     var headers = {
       'Accept': 'application/json',
       'X-Parse-Application-Id': 'PAT0PI3YSbkN4wknJpSAuvHtPbspR1ECof6TUF1X',
@@ -172,6 +168,34 @@ class ServerManager {
 
       // ProfileSettings info = ProfileSettings.fromJson(userInfo);
       onSuccess(mylist);
+
+    } else {
+      print(response.body);
+      print('Request failed with status: ${response.statusCode}.');
+    }
+  }
+
+  postItemsRequest(String bodys,void Function(String body) onSuccess, void Function(String errorCode) onError) async {
+
+    var headers = {
+      'Accept': 'application/json',
+      'X-Parse-Application-Id': 'PAT0PI3YSbkN4wknJpSAuvHtPbspR1ECof6TUF1X',
+      'X-Parse-REST-API-Key': 'EzhBnwHfNOKp16HGXK4PLuhNxZztvwrGxnpP12ak'
+    };
+    var response = await http.post(Uri.parse('https://parseapi.back4app.com/classes/Wahehouse'), headers: headers, body: bodys);
+
+    var body =
+    convert.jsonDecode(convert.utf8.decode(response.bodyBytes));
+
+    if (response.statusCode == 200) {
+
+      print(response.body);
+
+      // print("user info = ${response.body}");
+      // var userInfo = body['data'][0];
+
+      // ProfileSettings info = ProfileSettings.fromJson(userInfo);
+      onSuccess(response.body);
 
     } else {
       print(response.body);
@@ -227,12 +251,18 @@ class ServerManager {
       'X-Parse-REST-API-Key': 'EzhBnwHfNOKp16HGXK4PLuhNxZztvwrGxnpP12ak',
       //'where':'{\"email\": \"$email}\"}'
     };
-    var response = await http.put(Uri.parse('https://parseapi.back4app.com/classes/User/$id'), headers: headers, body: data);
+    var response = await http.put(Uri.parse('https://parseapi.back4app.com/classes/Users/$id'), headers: headers, body: data);
 
     var body =
     convert.jsonDecode(convert.utf8.decode(response.bodyBytes));
     print(body['results'][0]);
-    onSuccess(body);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      onSuccess(body);
+
+    } else {
+      print(response.body);
+      print('Request failed with status: ${response.statusCode}.');
+    }
   }
   postUserRequest( String data,void Function(String? body) onSuccess, void Function(String errorCode) onError) async {
     var headers = {
@@ -241,12 +271,18 @@ class ServerManager {
       'X-Parse-REST-API-Key': 'EzhBnwHfNOKp16HGXK4PLuhNxZztvwrGxnpP12ak',
       //'where':'{\"email\": \"$email}\"}'
     };
-    var response = await http.post(Uri.parse('https://parseapi.back4app.com/classes/User'), headers: headers, body: data);
+    var response = await http.post(Uri.parse('https://parseapi.back4app.com/classes/Users'), headers: headers, body: data);
 
     var body =
     convert.jsonDecode(convert.utf8.decode(response.bodyBytes));
     print(body);
-    onSuccess("body");
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      onSuccess(body.toString());
+
+    } else {
+      print(response.body);
+      print('Request failed with status: ${response.statusCode}.');
+    }
   }
   deleteItemRequest(String data,void Function(List<Product> body) onSuccess, void Function(String errorCode) onError) async {
     var headers = {

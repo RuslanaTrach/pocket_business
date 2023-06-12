@@ -41,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
       try {
         final credentials = await signInWithEmail.signUp(_emailController.text);
         var body = jsonDecode(credentials);
-        token = body['id_token'];
+        //token = body['id_token'];
         print(credentials);
       } on ApiException catch (e) {
         token = e.toString();

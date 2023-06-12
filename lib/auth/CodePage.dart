@@ -83,13 +83,12 @@ class _CodePageState extends State<CodePage> {
     }
 
     var value = verifiedString; //await storage.read(key: "isVerified");
-    setState(() {
-      storage.write(key: "token", value: token);
-      storage.write(key: "isVerified", value: verifiedString);
 
-      bool boolValue = value.toString().toLowerCase() == "true";
+      storage.write(key: "token", value: token);
 
       ServerManager(context).getUserRequest(widget.email, (body) async {
+
+        await storage.write(key: "email", value: widget.email);
           if(body == null) {
             Navigator.push(
               context,
@@ -99,11 +98,8 @@ class _CodePageState extends State<CodePage> {
               ),
             );
           }else{
-            if(body.isAdmin == true){
-              await storage.write(key: "isAdmin", value: 'true');
-            }else{
-              await storage.write(key: "isAdmin", value: 'false');
-            }
+            print(body.isAdmin.toString());
+              await storage.write(key: "isAdmin", value: body!.isAdmin.toString());
             Navigator.push(context,
                 CupertinoPageRoute(
                     builder: (context) =>
@@ -113,7 +109,6 @@ class _CodePageState extends State<CodePage> {
        // Dialogs().alert(context, Localization.of(context)!.trans("error"), Localization.of(context)!.trans("invalid_auth_data"), () {
 
         });
-      });
     }
 
 

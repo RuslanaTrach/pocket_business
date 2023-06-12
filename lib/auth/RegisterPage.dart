@@ -75,8 +75,11 @@ class _RegisterPageState extends State<RegisterPage> {
   _registrationAction() async {
     var body = "{ \"email\":\"${widget.email}\","
         "\"name\":\"${_emailController.text}\","
-        "\"is_admin\":\"false\"}";
-    ServerManager(context).postUserRequest(body, (body) {
+        "\"is_admin\":false}";
+    print(body);
+    await ServerManager(context).postUserRequest(body, (body) async {
+      await storage.write(key: "isAdmin", value: 'false');
+      await storage.write(key: "email", value: _emailController.text);
       print(body.toString());
       setState(() {
       });
